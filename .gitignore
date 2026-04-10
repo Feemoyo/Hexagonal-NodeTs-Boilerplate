@@ -23,11 +23,6 @@ build/
 .DS_Store
 .github/
 
-# Tests
-coverage/
-.nyc_output/
-
-# Logs
 logs/
 *.log
 npm-debug.log*
@@ -43,3 +38,14 @@ prisma/migrations/*
 # Cache
 .cache/
 .turbo/
+
+# Agents & AI Configuration
+.instructions.md
+.prompt.md
+.agent.md
+SKILL.md
+AGENTS.md
+.copilot*
+copilot-instructions.md
+.vscode/agents/
+.vscode/agent/
