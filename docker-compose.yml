@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hexagonal_postgres
+    environment:
+      POSTGRES_USER: hexagonal
+      POSTGRES_PASSWORD: hexagonal
+      POSTGRES_DB: hexagonal_starter
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U hexagonal']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: hexagonal_redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: hexagonal_otel_collector
+    command:
+      - '--config=/etc/otel-collector-config.yml'
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+    ports:
+      - '4317:4317'  # OTLP gRPC receiver
+      - '4318:4318'  # OTLP HTTP receiver
+      - '9411:9411'  # Zipkin receiver
+    depends_on:
+      - jaeger
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: hexagonal_jaeger
+    ports:
+      - '16686:16686'  # Jaeger UI
+    environment:
+      COLLECTOR_OTLP_ENABLED: 'true'
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: hexagonal_network

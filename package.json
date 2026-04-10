@@ -1,0 +1,57 @@
+{
+  "name": "hexagonal-starter",
+  "version": "1.0.0",
+  "description": "Hexagonal architecture boilerplate with Node.js, TypeScript, Fastify, Prisma, Redis, BullMQ and JWT",
+  "main": "dist/main/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --loader tsx/cjs --no-warnings=ExperimentalWarning src/main/server.ts",
+    "build": "tsc",
+    "start": "node dist/main/server.js",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "lint": "eslint src --ext .ts 2>/dev/null || true",
+    "format": "prettier --write 'src/**/*.ts'",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:prod": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:seed": "tsx src/infra/database/seed.ts",
+    "db:studio": "prisma studio"
+  },
+  "keywords": ["hexagonal", "clean-architecture", "nodejs", "typescript", "fastify", "prisma", "redis", "bullmq", "jwt"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/cors": "^9.0.0",
+    "@fastify/helmet": "^11.0.0",
+    "@prisma/client": "^5.10.0",
+    "bullmq": "^5.0.0",
+    "dotenv": "^16.0.0",
+    "fastify": "^4.25.0",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "pino": "^8.16.0",
+    "pino-pretty": "^10.2.0",
+    "redis": "^4.6.0",
+    "uuid": "^9.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.8",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vitest/ui": "^1.0.0",
+    "eslint": "^8.54.0",
+    "prettier": "^3.1.0",
+    "prisma": "^5.10.0",
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
