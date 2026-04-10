@@ -21,6 +21,7 @@ build/
 *.swo
 *~
 .DS_Store
+.github/
 
 # Tests
 coverage/
